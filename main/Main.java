@@ -70,8 +70,14 @@ import java.util.Map;
                 return new Integer(o1).compareTo(new Integer(o2));
             }
         });
-        sorter.sort(data, new TableSorter.OrderBy("lex", 0), new TableSorter.OrderBy("num", 1, true));
-//        sorter.sort(data, new TableSorter.OrderBy("lex", 2), new TableSorter.OrderBy("lex", 0, true));
+        // sorter.sort(data, new TableSorter.OrderBy("lex", 0), new TableSorter.OrderBy("num", 1, true)); // a
+        // sorter.sort(data, new TableSorter.OrderBy("lex", 2), new TableSorter.OrderBy("lex", 0, true)); // 設問2
+        sorter.putSortOrder("numC", new Comparator<String>() { // 設問3
+            public int compare(String s1, String  s2) {
+                return new Integer(s1.replace(",", "")).compareTo(new Integer(s2.replace(",", "")));
+            }
+        });
+        sorter.sort(data, new TableSorter.OrderBy("numC", 2), new TableSorter.OrderBy("lex", 0)); // 設問3
         for (String[] row : data) {
             for (String col : row) {
                 System.out.printf("%s ", col);
